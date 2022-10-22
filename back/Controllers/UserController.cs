@@ -31,7 +31,7 @@ public class UserController : ControllerBase
 
         var token = await service.CreateToken(possibleUser);
         
-        return Ok(token.Value); // vai mandar para o front end fazer a verificação se o usuário é realmente quem logou e ferou aquele token
+        return Ok(token.Value); // vai mandar para o front end fazer a verificação se o usuário é realmente quem logou e ferou aquele token ***
     }
 
     [HttpPost("register")]

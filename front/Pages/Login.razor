@@ -1,9 +1,11 @@
 @page "/login"
 
 @using Services;
+@using Microsoft.AspNetCore.Components
 
 @inject UserService service
 @inject NavigationManager nav
+@inject ProtectedSessionStorage storage
 
 <div class="logregcontainer">
     <div class="registercontainer">
@@ -101,6 +103,8 @@
             return;
         }
             
+        await storage.   //finalizar
+
         nav.NavigateTo("/");
 
     }

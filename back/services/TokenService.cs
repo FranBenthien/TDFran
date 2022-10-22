@@ -56,8 +56,19 @@ public class TokenService
         return string.Concat(array);
     }
 
-    public Usuario TokenValidation(Token token)
+    public Usuario TokenValidation(string value)
     {
-
+        using TDSabadoContext context = new TDSabadoContext();
+        var token = context.Tokens.FirstOrDefault(
+            t => t.Value == value);
+        
+        if (token == null)
+            return null;
+        
+        var userId = token.UserId;
+        var user = context.Usuarios.FirstOrDefault(
+            u => u.Id == userId);
+        
+        return user;
     }
 }

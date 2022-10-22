@@ -7,7 +7,7 @@ namespace front.Services;
 
 public class UserService
 {
-    HttpClient client;
+    HttpClient client; // classe que faz requisições para o BAck end ****
 
     public UserService(string server)
     {
@@ -28,7 +28,7 @@ public class UserService
         user.BirthDate = birth;
 
         var result = await client
-            .PostAsJsonAsync("user/register", user);
+            .PostAsJsonAsync("user/register", user);   //organiza de forma que possa ser lido ****
     }
 
     public async Task<string> Login(

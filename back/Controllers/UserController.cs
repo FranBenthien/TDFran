@@ -14,7 +14,7 @@ public class UserController : ControllerBase
         [FromBody]UsuarioDTO user
     )
     {
-        using TDSabadoContext context 
+        using TDSabadoContext context   //utiliza o using para limpar depois ***
             = new TDSabadoContext();
         
         var possibleUser = context.Usuarios
@@ -22,7 +22,7 @@ public class UserController : ControllerBase
                 u => u.UserId == user.UserId);
         
         if (possibleUser == null)
-            return BadRequest("Nome de usuário inválido");
+            return BadRequest("Nome de usuário inválido");  //pode incluir qualquer tipo de erro ***
 
         if (possibleUser.Userpass != user.Password)
             return BadRequest("Senha inválida!");

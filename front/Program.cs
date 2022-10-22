@@ -5,7 +5,7 @@ using front.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 
-string server = "https://localhost:7029";
+string server = "https://localhost:7029";  // altera a porta se mudar, mas com essa string não precisa alterar nos demais locais ****
 
 // if (builder.Environment.IsProduction())
 // {
@@ -16,7 +16,7 @@ string server = "https://localhost:7029";
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton(
-    provider => new UserService(server));
+    provider => new UserService(server));  //criado o servico com base no servico global, pode ser usado em toda a aplicação ****
 
 var app = builder.Build();
 

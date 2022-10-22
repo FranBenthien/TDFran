@@ -3,6 +3,7 @@
 @using Services;
 
 @inject UserService service
+@inject NavigationManager nav
 
 <div class="logregcontainer">
     <div class="registercontainer">
@@ -36,6 +37,13 @@
         </button>
     </div>
     <div class="logincontainer">
+        @if (loginError != "")
+        {
+        <p>
+            <label style="color: red;">@loginError</label>
+        </p>
+        }
+
         <p>
             <label>Nome de Usuario</label>
             <input type="text" @bind-value="@userId"/>
@@ -61,6 +69,8 @@
     private DateTime birth;
     private string userId;
 
+    private string loginError;
+
     public async void CreateAccount()
     {
         await service.Register(
@@ -68,6 +78,14 @@
             this.userId,
             this.birth, 
             this.password);
+
+        this.name = "";
+        this.userId = "";
+        this.birth = DateTime.Now;
+        this.password = "";
+
+        this.StateHasChanged();  // diz que status da tela mudou e que precisa atualizar ela novamente
+
     }
 
     public async void UserLogin()
@@ -78,11 +96,12 @@
         );
         if (result == null)
         {
-            Console.WriteLine("Não logou");
+            loginError = "Senha ou login incorreto.";
+            StateHasChanged();
+            return;
         }
-        else
-        {
-            Console.WriteLine("Logou");
-        }
+            
+        nav.NavigateTo("/");
+
     }
 }

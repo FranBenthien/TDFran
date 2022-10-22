@@ -8,7 +8,7 @@ namespace back.Model
         public Usuario()
         {
             FollowFolloweds = new HashSet<Follow>();
-            FollowFollowers = new HashSet<Follow>();
+            FollowFollowerDNavigations = new HashSet<Follow>();
             Likes = new HashSet<Like>();
             Posts = new HashSet<Post>();
             Tokens = new HashSet<Token>();
@@ -21,7 +21,7 @@ namespace back.Model
         public string Userpass { get; set; } = null!;
 
         public virtual ICollection<Follow> FollowFolloweds { get; set; }
-        public virtual ICollection<Follow> FollowFollowers { get; set; }
+        public virtual ICollection<Follow> FollowFollowerDNavigations { get; set; }
         public virtual ICollection<Like> Likes { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Token> Tokens { get; set; }

@@ -7,9 +7,9 @@ namespace back.Model
     {
         public int Id { get; set; }
         public int? FollowedId { get; set; }
-        public int? FollowerId { get; set; }
+        public int? FollowerD { get; set; }
 
         public virtual Usuario? Followed { get; set; }
-        public virtual Usuario? Follower { get; set; }
+        public virtual Usuario? FollowerDNavigation { get; set; }
     }
 }

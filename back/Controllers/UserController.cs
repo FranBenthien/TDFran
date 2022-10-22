@@ -3,6 +3,7 @@ using dto;
 
 namespace back.Controllers;
 
+using Services;
 using Model;
 
 [ApiController]
@@ -10,8 +11,9 @@ using Model;
 public class UserController : ControllerBase
 {
     [HttpPost("login")]
-    public IActionResult Login(
-        [FromBody]UsuarioDTO user
+    public async Task<IActionResult> Login(
+        [FromBody]UsuarioDTO user, 
+        [FromServices]TokenService service
     )
     {
         using TDSabadoContext context   //utiliza o using para limpar depois ***
@@ -26,8 +28,10 @@ public class UserController : ControllerBase
 
         if (possibleUser.Userpass != user.Password)
             return BadRequest("Senha inválida!");
+
+        var token = await service.CreateToken(possibleUser);
         
-        return Ok();
+        return Ok(token.Value); // vai mandar para o front end fazer a verificação se o usuário é realmente quem logou e ferou aquele token
     }
 
     [HttpPost("register")]

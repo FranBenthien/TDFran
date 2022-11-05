@@ -46,7 +46,7 @@ public class UserService
         if (result.StatusCode != HttpStatusCode.OK)
             return null;
 
-        var token = await result.Content.ReadAsByteArrayAsync();
+        var token = await result.Content.ReadAsStringAsync();
         return token;
     }
 }

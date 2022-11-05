@@ -1,7 +1,9 @@
+using System;
+
 namespace back.Services;
 
 using Model;
-using System;
+
 public class TokenService
 {
     public int TokenSize {get; private set; }
@@ -47,8 +49,8 @@ public class TokenService
     private string generateRandomString(int seed, int n)
     {
         Random rand = new Random(seed);
-        char [] array = new char [N];
-        for (int i = 0; i < N; i++)
+        char [] array = new char [n];
+        for (int i = 0; i < n; i++)
         {
             char c = (char)('a' + rand.Next(26));
             array[i] = c;

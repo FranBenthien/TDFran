@@ -27,7 +27,8 @@ namespace back.Model
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=SNCCH01LABF113\TEW_SQLEXPRESS;Initial Catalog=TDSabado;Integrated Security=True");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Data Source=SNCCH01LABF113\\TEW_SQLEXPRESS;Initial Catalog=TDSabado;Integrated Security=True");
             }
         }
 
@@ -41,34 +42,34 @@ namespace back.Model
 
                 entity.Property(e => e.FollowedId).HasColumnName("FollowedID");
 
-                entity.Property(e => e.FollowerId).HasColumnName("FollowerID");
-
                 entity.HasOne(d => d.Followed)
                     .WithMany(p => p.FollowFolloweds)
                     .HasForeignKey(d => d.FollowedId)
-                    .HasConstraintName("FK__Follow__Followed__32E0915F");
+                    .HasConstraintName("FK__Follow__Followed__1ED998B2");
 
-                entity.HasOne(d => d.Follower)
-                    .WithMany(p => p.FollowFollowers)
-                    .HasForeignKey(d => d.FollowerId)
-                    .HasConstraintName("FK__Follow__Follower__33D4B598");
+                entity.HasOne(d => d.FollowerDNavigation)
+                    .WithMany(p => p.FollowFollowerDNavigations)
+                    .HasForeignKey(d => d.FollowerD)
+                    .HasConstraintName("FK__Follow__Follower__1FCDBCEB");
             });
 
             modelBuilder.Entity<Like>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.PostId).HasColumnName("PostID");
+
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.HasOne(d => d.Post)
                     .WithMany(p => p.Likes)
                     .HasForeignKey(d => d.PostId)
-                    .HasConstraintName("FK__Likes__PostId__2F10007B");
+                    .HasConstraintName("FK__Likes__PostID__1B0907CE");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Likes)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Likes__UserID__300424B4");
+                    .HasConstraintName("FK__Likes__UserID__1BFD2C07");
             });
 
             modelBuilder.Entity<Post>(entity =>
@@ -86,7 +87,7 @@ namespace back.Model
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Posts)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Post__UserID__29572725");
+                    .HasConstraintName("FK__Post__UserID__15502E78");
             });
 
             modelBuilder.Entity<PostImage>(entity =>
@@ -97,15 +98,17 @@ namespace back.Model
 
                 entity.Property(e => e.Bytes).HasColumnType("image");
 
+                entity.Property(e => e.PostId).HasColumnName("PostID");
+
                 entity.HasOne(d => d.Post)
                     .WithMany(p => p.PostImages)
                     .HasForeignKey(d => d.PostId)
-                    .HasConstraintName("FK__PostImage__PostI__2C3393D0");
+                    .HasConstraintName("FK__PostImage__PostI__182C9B23");
             });
 
             modelBuilder.Entity<Token>(entity =>
             {
-                entity.ToTable("Token");
+                entity.ToTable("token");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
@@ -116,7 +119,7 @@ namespace back.Model
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Tokens)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Token__UserID__267ABA7A");
+                    .HasConstraintName("FK__token__UserID__1273C1CD");
             });
 
             modelBuilder.Entity<Usuario>(entity =>
@@ -133,7 +136,8 @@ namespace back.Model
 
                 entity.Property(e => e.UserId)
                     .HasMaxLength(60)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasColumnName("UserID");
 
                 entity.Property(e => e.Userpass).IsUnicode(false);
             });

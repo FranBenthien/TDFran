@@ -16,22 +16,20 @@ public class UserController : ControllerBase
         [FromServices]TokenService service
     )
     {
-        using TDSabadoContext context   //utiliza o using para limpar depois ***
-            = new TDSabadoContext();
+        using TDSabadoContext context = new TDSabadoContext();
         
         var possibleUser = context.Usuarios
             .FirstOrDefault(
                 u => u.UserId == user.UserId);
         
         if (possibleUser == null)
-            return BadRequest("Nome de usuário inválido");  //pode incluir qualquer tipo de erro ***
+            return NotFound("Nome de usuário inválido");
 
         if (possibleUser.Userpass != user.Password)
-            return BadRequest("Senha inválida!");
+            return NotFound("Senha inválida!");
 
         var token = await service.CreateToken(possibleUser);
-        
-        return Ok(token.Value); // vai mandar para o front end fazer a verificação se o usuário é realmente quem logou e ferou aquele token ***
+        return Ok(token.Value);
     }
 
     [HttpPost("register")]
@@ -39,8 +37,7 @@ public class UserController : ControllerBase
         [FromBody] UsuarioDTO user
         )
     {
-        using TDSabadoContext context 
-            = new TDSabadoContext();
+        using TDSabadoContext context = new TDSabadoContext();
         
         List<string> errors = new List<string>();
 

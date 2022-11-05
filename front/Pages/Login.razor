@@ -1,7 +1,7 @@
 @page "/login"
 
 @using Services;
-@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 
 @inject UserService service
 @inject NavigationManager nav
@@ -85,7 +85,7 @@
         this.userId = "";
         this.birth = DateTime.Now;
         this.password = "";
-
+        this.repeatpassword = "";
         this.StateHasChanged();  // diz que status da tela mudou e que precisa atualizar ela novamente
 
     }
@@ -96,6 +96,7 @@
             this.userId,
             this.password
         );
+
         if (result == null)
         {
             loginError = "Senha ou login incorreto.";
@@ -103,8 +104,7 @@
             return;
         }
             
-        await storage.   //finalizar
-
+        await storage.SetAsync("token", result);
         nav.NavigateTo("/");
 
     }

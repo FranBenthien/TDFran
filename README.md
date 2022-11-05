@@ -16,7 +16,7 @@ Commandos Úteis
 - dotnet add reference [caminho pro csproj]
 - Set-ExecutionPolicy -ExecutionPolicy ByPass -Scope CurrentUser
 
-.\createmodel.ps1 SNCCH01LABF113\TEW_SQLEXPRESS TDSabado
+.\createmodel.ps1 "SNCCH01LABF113\TEW_SQLEXPRESS" "TDSabado"
 
 Links Importantes
 
